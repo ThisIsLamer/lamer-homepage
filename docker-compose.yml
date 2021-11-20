@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  lamer_homepage:
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+      target: base
+    labels:
+      - "traefik.http.routers.${PROJ_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${PROJ_NAME}.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.${PROJ_NAME}.tls=true"
+      - "traefik.http.routers.${PROJ_NAME}.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.${PROJ_NAME}.tls.domains[0].main=${DOMAIN}`"
+      - "traefik.http.routers.${PROJ_NAME}.tls.domains[0].sans=www.${DOMAIN}`"
+    container_name: ${PROJ_NAME}
+    expose:
+      - '3000'
+    ports:
+      - '${PORT}:3000'
+    command: npm run serve
+    restart: unless-stopped
+    networks:
+      - "proxy"
+
+networks:
+  proxy:
+    external: true
