@@ -33,7 +33,7 @@ lamer_homepage                  Root directory
 ```
 
 # About me
-Website: lamer.otter.su <br>
+Website: https://lamer.otter.su <br>
 Discord: [Otter] Lamer#2800
 
 # Concept
