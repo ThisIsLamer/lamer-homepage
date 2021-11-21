@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 export async function loadDiscordInfo() {
-  const response = await axios.get(`https://discord.com/api/v9/users/${process.env.USER_ID}`, {
+  const response = await axios.get(`https://discord.com/api/v9/users/@me`, {
     headers: {
-      Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+      Authorization: process.env.DISCORD_USER_TOKEN,
     },
   });
 
   return {
-    avatar: `https://cdn.discordapp.com/avatars/${process.env.USER_ID}/${response.data.avatar}.jpg?size=128`,
+    avatar: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg?size=128`,
     nickname: response.data.username,
-    // * TODO: Сделать получение статуза из дискорда
-    status: 'Обмазываюсь жабаскриптом каждый день',
+    status: response.data.bio.split('\n\n')[1],
+    backgroundColor: response.data.banner_color,
   };
 }
 console.log();
