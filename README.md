@@ -5,7 +5,7 @@
   Small personal website
 </div>
 
-# Структура
+# Structure
 ```
 lamer_homepage                  Root directory
 │       .env                    Environment Variables
