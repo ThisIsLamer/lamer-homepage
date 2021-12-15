@@ -1,16 +1,24 @@
 import Fastify from 'fastify';
 import path from 'path/posix';
+import fs from 'fs';
 import { AddressInfo } from 'net';
 
 import { loadDiscordInfo, loadInfo } from './load.info';
 
-import { Logger } from './utils/logger';
+import { Logger } from './utils';
 import envLoader from './utils/env.loader';
 envLoader();
 
 const logger = new Logger(__filename.replace(__dirname, ''));
 
 const fastify = Fastify();
+
+const files = fs.readdirSync('src/hooks');
+files.map(async (file) => {
+  const data = new ((await import('./hooks/' + file)) as any).default();
+  fastify.addHook(data.name, (...values: any[]) => data.func(...values));
+});
+
 fastify.register(import('point-of-view'), {
   engine: {
     ejs: require('ejs'),
