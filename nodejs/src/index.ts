@@ -41,8 +41,11 @@ fastify.get('/', async (req, reply) => {
 fastify
   .listen(3000, '0.0.0.0')
   .then(() => {
-    logger.info(`Listening port on ${(fastify.server.address() as AddressInfo).port}`);
+    const server = fastify.server.address() as AddressInfo;
+    logger.info(`Listening port on ${server.port}`);
+    logger.info(`local: http://localhost:${server.port}`);
+    logger.info(`global: https://${process.env.DOMAIN}`);
   })
-  .catch((err) => {
-    console.error(err);
+  .catch((error) => {
+    logger.error(error);
   });

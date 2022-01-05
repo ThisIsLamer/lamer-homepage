@@ -6,9 +6,7 @@ export default class extends HookController {
     super({
       name: 'onError',
       func: async (request: FastifyRequest, reply: FastifyReply, error: FastifyError) => {
-        this.logger.info(
-          `Error code: ${error.code}, status: ${error.statusCode}, name: ${error.name}. ${error.message}`
-        );
+        this.logger.error(error);
       },
     });
   }
