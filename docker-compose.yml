@@ -3,7 +3,7 @@ version: "3.9"
 services:
   lamer_homepage:
     build:
-      context: ./nodejs
+      context: .
       dockerfile: Dockerfile
       target: base
     labels:

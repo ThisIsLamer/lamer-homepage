@@ -13,7 +13,7 @@ const logger = new Logger(__filename.replace(__dirname, ''));
 
 const fastify = Fastify();
 
-const files = fs.readdirSync('src/hooks');
+const files = fs.readdirSync('.build/hooks');
 files.map(async (file) => {
   const data = new ((await import('./hooks/' + file)) as any).default();
   fastify.addHook(data.name, (...values: any[]) => data.func(...values));
@@ -42,7 +42,6 @@ fastify
   .listen(3000, '0.0.0.0')
   .then(() => {
     const server = fastify.server.address() as AddressInfo;
-    logger.info(`Listening port on ${server.port}`);
     logger.info(`local: http://localhost:${server.port}`);
     logger.info(`global: https://${process.env.DOMAIN}`);
   })
