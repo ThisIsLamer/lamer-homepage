@@ -14,7 +14,7 @@ export async function loadDiscordInfo() {
     backgroundColor: response.data.banner_color,
   };
 }
-console.log();
+
 export function loadInfo() {
   return {
     title: 'Lamer',
