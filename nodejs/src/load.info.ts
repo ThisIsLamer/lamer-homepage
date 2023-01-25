@@ -8,7 +8,7 @@ export async function loadDiscordInfo() {
   });
 
   return {
-    avatar: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg?size=128`,
+    avatar: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}?size=512`,
     nickname: response.data.username,
     status: response.data.bio.split('\n\n')[1],
     backgroundColor: response.data.banner_color,
